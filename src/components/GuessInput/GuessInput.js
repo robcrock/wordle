@@ -8,6 +8,7 @@ function GuessInput({ handleGuess }) {
     handleGuess({
       id: crypto.randomUUID(),
       letters: tentativeGuess.split(""),
+      status: "",
     });
     setTentativeGuess("");
   };
