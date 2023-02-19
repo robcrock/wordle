@@ -5,10 +5,7 @@ function Guess({ letters }) {
     <p className="guess">
       {letters.map(({ id, letter, status }) => {
         return (
-          <span
-            key={id}
-            className={`cell ${status !== "" ? status : undefined}`}
-          >
+          <span key={id} className={status !== "" ? `cell ${status}` : "cell"}>
             {letter}
           </span>
         );

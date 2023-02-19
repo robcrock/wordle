@@ -7,6 +7,7 @@ import GuessResults from "../GuessResults";
 import { range } from "../../utils";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import { checkGuess } from "../../game-helpers";
+import Banner from "../Banner";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -24,10 +25,21 @@ function initialGuesses() {
 
 function Game() {
   const [guesses, setGuesses] = React.useState(() => initialGuesses());
+  const [guessCount, setGuessCount] = React.useState(0);
+  const [gameStatus, setGameStatus] = React.useState("running");
 
   const handleGuess = (guess) => {
+    setGuessCount((prevGuessCount) => prevGuessCount + 1);
+
     setGuesses((prevGuesses) => {
+      // Check the guess against the answer.
       const letterStatus = checkGuess(guess.letters.join(""), answer);
+
+      // Check if the game is won or lost.
+      letterStatus.filter((letter) => letter.status === "correct").length ===
+        5 && setGameStatus("won");
+      if (guessCount > 4) setGameStatus("lost");
+
       // Create a copy of the previous guesses.
       let nextGuesses = [...prevGuesses];
       // Add the new guess to the beginning of the array.
@@ -51,7 +63,8 @@ function Game() {
   return (
     <>
       <GuessResults guesses={guesses} />
-      <GuessInput handleGuess={handleGuess} />
+      <GuessInput handleGuess={handleGuess} gameStatus={gameStatus} />
+      <Banner gameStatus={gameStatus} guessCount={guessCount} answer={answer} />
     </>
   );
 }
