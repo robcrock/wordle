@@ -39,7 +39,7 @@ function Game() {
       // Check if the game is won or lost.
       letterStatus.filter((letter) => letter.status === "correct").length ===
         5 && setGameStatus("won");
-      if (nextGuessCount > NUM_OF_GUESSES_ALLOWED) setGameStatus("lost");
+      if (nextGuessCount >= NUM_OF_GUESSES_ALLOWED) setGameStatus("lost");
 
       // Create a copy of the previous guesses.
       let nextGuesses = [...prevGuesses];
