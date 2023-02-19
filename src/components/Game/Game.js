@@ -29,6 +29,7 @@ function Game() {
   const [gameStatus, setGameStatus] = React.useState("running");
 
   const handleGuess = (guess) => {
+    const nextGuessCount = guessCount + 1;
     setGuessCount((prevGuessCount) => prevGuessCount + 1);
 
     setGuesses((prevGuesses) => {
@@ -38,7 +39,7 @@ function Game() {
       // Check if the game is won or lost.
       letterStatus.filter((letter) => letter.status === "correct").length ===
         5 && setGameStatus("won");
-      if (guessCount > 4) setGameStatus("lost");
+      if (nextGuessCount > NUM_OF_GUESSES_ALLOWED) setGameStatus("lost");
 
       // Create a copy of the previous guesses.
       let nextGuesses = [...prevGuesses];
