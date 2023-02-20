@@ -14,7 +14,7 @@ function GuessInput({ handleGuess, gameStatus }) {
   };
 
   return (
-    <form className="guess-input-wrapper" onSubmit={handleSubmit}>
+    <form className="guess-input-wrapper" onSubmit={handleSubmit} data-testid="form">
       <label htmlFor="guess-input">Enter guess:</label>
       <input
         disabled={gameStatus !== "running"}
