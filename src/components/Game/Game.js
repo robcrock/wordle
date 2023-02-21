@@ -17,9 +17,9 @@ console.info({ answer });
 function initialGuesses() {
   return range(NUM_OF_GUESSES_ALLOWED).map((guess) => {
     const letters = range(5).map((letter) => {
-      return { id: crypto.randomUUID(), letter: "", status: "" };
+      return { id: Math.random(), letter: "", status: "" };
     });
-    return { id: crypto.randomUUID(), letters };
+    return { id: Math.random(), letters };
   });
 }
 
@@ -51,7 +51,7 @@ function Game() {
       // the previous value of letters with this array.
       nextGuesses[0].letters = guess.letters.map((letter, i) => {
         return {
-          id: crypto.randomUUID(),
+          id: Math.random(),
           letter,
           status: letterStatus[i].status,
         };

@@ -5,7 +5,7 @@ function Banner({ gameStatus, guessCount, answer }) {
 
   if (gameStatus === "won") {
     return (
-      <div className="happy banner">
+      <div className="happy banner" data-testid="banner">
         <p>
           <strong>Congratulations!</strong> Got it in{" "}
           <strong>{`${guessCount} guess${
@@ -19,7 +19,7 @@ function Banner({ gameStatus, guessCount, answer }) {
 
   if (gameStatus === "lost") {
     return (
-      <div className="sad banner">
+      <div className="sad banner" data-testid="banner">
         <p>
           Sorry, the correct answer is <strong>{answer}</strong>.
         </p>

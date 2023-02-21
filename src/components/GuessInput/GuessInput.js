@@ -6,7 +6,7 @@ function GuessInput({ handleGuess, gameStatus }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleGuess({
-      id: crypto.randomUUID(),
+      id: Math.random(),
       letters: tentativeGuess.split(""),
       status: "",
     });

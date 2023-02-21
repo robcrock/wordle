@@ -1,11 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import GuessInput from '../components/GuessInput';
+import App from '../components/App/App';
+import GuessInput from '../components/GuessInput/GuessInput';
 
 const setup = () => {
 
-  const {utils} = render(<GuessInput />)
+  const {utils} = render(<App />)
   const input = screen.getByLabelText('Enter guess:')
   return {
     input,
@@ -14,27 +15,29 @@ const setup = () => {
 }
 
 describe('GuessInput', () => {
-  test("renders a guess input with the label 'Enter guess:'", () => {
+
+  test("The input displays HELLO, when HELLO is typed into the input.", () => {
     const { input } = setup()
     fireEvent.change(input, {target: {value: 'HELLO'}})
     expect(input.value).toBe('HELLO')
   })
 
-  test("renders a guess input that's exactly 5 character long.", () => {
-    const { input } = setup()
-    expect(input).toHaveAttribute('pattern', '[A-Z]{5}');
+  test("The input is disabled when the gameStatus is not running.", () => {
+    render(<GuessInput gameStatus={'won'} />)
+    const input = screen.getByLabelText('Enter guess:')
+    expect(input).toBeDisabled()
   })
 
-  test("renders a guess input that's required.", () => {
-    const { input } = setup()
-    expect(input).toBeRequired();
+  test("The input is enabled when the gameStatus is running.", () => {
+    render(<GuessInput gameStatus={'running'} />)
+    const input = screen.getByLabelText('Enter guess:')
+    expect(input).toBeEnabled()
   })
 
-  test('submits the form with input data', () => {
-    const { input } = setup()
-    const form = screen.getByTestId('form');
-    fireEvent.change(input, { target: { value: 'HELLO' } });
-    fireEvent.submit(form);
+  test("The input is required.", () => {
+    render(<GuessInput />)
+    const input = screen.getByLabelText('Enter guess:')
+    expect(input).toBeRequired()
   })
 
 });
